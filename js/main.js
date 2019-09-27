@@ -62,3 +62,18 @@ console.log(result);
 // thought the functions have already return garbage collected from memory, it's variables are somehow still kept alive.
 
 console.log(multiply2(1)(9)(2));
+
+// looking more closely at closures and partially applying functions
+// example from medium
+
+const partialApply = (fn, ...fixedArgs) => {
+    return function (...remainingArgs) {
+        return fn.apply(this, fixedArgs.concat(remainingArgs));
+    }
+}
+
+const add = (a, b) => a + b;
+
+const add10 = partialApply(add, 10);
+
+console.log(add10(5));
